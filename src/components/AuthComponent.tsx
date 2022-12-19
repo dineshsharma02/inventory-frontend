@@ -1,13 +1,17 @@
 import React, { FC } from 'react'
 import {Form,Input, Button} from 'antd'
 import {Link} from 'react-router-dom'
+import { DataProps } from '../utils/types'
+
 
 interface AuthComponentProps {
-    titleText ?: string,
-    isPassword ?: boolean,
-    bottomText?: string,
-    linkText?:string,
+    titleText ?: string
+    isPassword ?: boolean
+    bottomText?: string
+    linkText?:string
     linkPath?:string
+    onSubmit: (values: DataProps) => void
+    loading: boolean
 }
 
 
@@ -16,10 +20,18 @@ const AuthComponent:FC<AuthComponentProps> =  ({
     isPassword = true,
     bottomText = "Login",
     linkText = "New User?",
-    linkPath = "/check-user"
+    linkPath = "/check-user",
+    onSubmit,
+    loading = false
 
 
 }) => {
+
+  // const onSubmit = (values:any) => {
+  //   console.log({values});
+    
+  // }
+
   return (
     <div className="login">
         <div className="inner">
@@ -29,18 +41,24 @@ const AuthComponent:FC<AuthComponentProps> =  ({
             </div>
 
     
-    <Form layout = "vertical">
+    <Form layout = "vertical" autoComplete='off' onFinish={onSubmit}>
       
-      <Form.Item label="Email">
-        <Input placeholder="abc@gmail.com" />
+      <Form.Item 
+        label="Email"
+        name = "email"
+        rules={[{required:true, message: "Please input your email"}]}>
+        <Input placeholder="abc@gmail.com" type='email'/>
       </Form.Item>
 
-      {isPassword && <Form.Item label="Password">
-        <Input placeholder="" type='password' />
+      {isPassword && <Form.Item 
+        label="Password" 
+        name="password"
+        rules={[{required:true, message: "Please input your password"}]}>
+        <Input placeholder="password" type='password' />
       </Form.Item>}
       
       <Form.Item>
-        <Button type="primary" block>{bottomText}</Button>
+        <Button htmlType='submit' type="primary" block loading={loading}>{bottomText}</Button>
       </Form.Item>
 
     </Form>
