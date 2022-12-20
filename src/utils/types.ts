@@ -29,3 +29,8 @@ export interface UserType {
     role: string
     last_login: string
 }
+
+export interface AuthProps {
+    errorCallBack?: () => void
+    successCallBack?: () => void
+}

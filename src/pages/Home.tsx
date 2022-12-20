@@ -1,9 +1,18 @@
 import React, { useEffect, useState } from 'react'
 import { authHandler, logout } from '../utils/functions'
+import { useAuth } from '../utils/hooks'
 import { UserType } from '../utils/types'
 const Home = () => {
     const [loading, setLoading] = useState(true)
 
+    useAuth({
+        errorCallBack: () =>{
+            logout()
+        },
+        successCallBack: ()=>{
+            setLoading(false)
+        }
+    })
 
     useEffect(() => {
       const checkUser = async () =>{

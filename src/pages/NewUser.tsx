@@ -5,10 +5,19 @@ import AuthComponent from '../components/AuthComponent'
 import { CustomAxiosError, DataProps } from '../utils/types'
 import { LoginUrl } from '../utils/network'
 import axios from 'axios'
+import { useAuth } from '../utils/hooks'
+import { useNavigate } from 'react-router-dom'
 
 const NewUser = () => {
 
   const [loading, setLoading] = useState(false)
+  const history = useNavigate()
+  useAuth({
+    successCallBack:()=>{
+        history("/")
+    }
+})
+
 
     const onSubmit = async (values:DataProps)=>{
         setLoading(true)

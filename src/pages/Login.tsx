@@ -7,6 +7,7 @@ import { LoginUrl } from '../utils/network';
 import { notification } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { tokenName } from '../utils/data';
+import { useAuth } from '../utils/hooks';
 
 
 interface LoginDataProps {
@@ -18,6 +19,12 @@ interface LoginDataProps {
 const Login = () => {
     const [loading, setLoading] = useState(false)
     const history = useNavigate()
+
+    useAuth({
+        successCallBack:()=>{
+            history("/")
+        }
+    })
 
     const onSubmit = async (values:DataProps)=>{
         setLoading(true)
