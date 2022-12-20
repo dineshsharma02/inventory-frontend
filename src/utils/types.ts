@@ -13,3 +13,19 @@ export interface CustomAxiosError extends Omit<AxiosError,'response'>{
         }
     }
 }
+
+export interface AuthTokenType {
+    headers?:{
+        Authorization: string
+    }
+}
+
+
+export interface UserType {
+    email: string
+    fullname: string
+    id : string
+    created_at: string
+    role: string
+    last_login: string
+}

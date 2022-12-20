@@ -5,9 +5,19 @@ import { CustomAxiosError ,DataProps } from '../utils/types';
 import axios , {AxiosError} from 'axios';
 import { LoginUrl } from '../utils/network';
 import { notification } from 'antd';
+import { useNavigate } from 'react-router-dom';
+import { tokenName } from '../utils/data';
+
+
+interface LoginDataProps {
+    data :{
+        access: string
+    }
+}
 
 const Login = () => {
     const [loading, setLoading] = useState(false)
+    const history = useNavigate()
 
     const onSubmit = async (values:DataProps)=>{
         setLoading(true)
@@ -25,6 +35,9 @@ const Login = () => {
                 message:"User Logged In",
                 // description: e.response?.data.error
             })
+            localStorage.setItem(tokenName,response.data.Access)
+            history("/")
+            setLoading(false)
             
         }
         setTimeout(()=>setLoading(false),2000)
