@@ -1,6 +1,7 @@
-import { useEffect } from "react"
+import { useContext, useEffect } from "react"
 import { authHandler, logout } from "./functions"
-import { AuthProps, UserType } from "./types"
+import { ActionTypes, AuthProps, UserType } from "./types"
+import {store} from "./store"
 
 
 
@@ -9,6 +10,10 @@ export const useAuth = async (
         errorCallBack,
         successCallBack
     }:AuthProps) =>{
+
+    const { dispatch } :any = useContext(store)
+
+
     useEffect(() => {
         const checkUser = async () =>{
           const user:UserType | null = await authHandler()
@@ -22,7 +27,8 @@ export const useAuth = async (
 
 
             if (successCallBack){
-            successCallBack()
+              dispatch({type:ActionTypes.UPDATE_USER_INFO,payload:user})
+              successCallBack()
             }
         }
         checkUser()

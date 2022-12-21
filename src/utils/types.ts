@@ -1,4 +1,5 @@
 import { AxiosError } from "axios"
+import React, { ReactNode } from "react"
 
 
 export interface DataProps {
@@ -33,4 +34,31 @@ export interface UserType {
 export interface AuthProps {
     errorCallBack?: () => void
     successCallBack?: () => void
+}
+
+export interface Props{
+    Children?: ReactNode | null;
+}
+
+export type StoreType = {
+    children: React.ReactNode;
+}
+
+export interface StoreProps {
+    user?: UserType | null 
+}
+
+export enum ActionTypes {
+    UPDATE_USER_INFO = "[action] update user info"
+}
+
+export interface ActionProps {
+    type : ActionTypes,
+    payload : UserType | null,
+}
+
+
+export interface StoreProviderProps{
+    state:StoreProps,
+    dispatch: (arg:ActionProps)=> void
 }

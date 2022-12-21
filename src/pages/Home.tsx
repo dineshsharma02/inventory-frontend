@@ -1,39 +1,16 @@
-import React, { useEffect, useState } from 'react'
-import { authHandler, logout } from '../utils/functions'
-import { useAuth } from '../utils/hooks'
-import { UserType } from '../utils/types'
+import { useContext } from "react"
+import { store } from "../utils/store"
+
+
 const Home = () => {
-    const [loading, setLoading] = useState(true)
+  const {state}:any = useContext(store)
+  console.log({state})
 
-    useAuth({
-        errorCallBack: () =>{
-            logout()
-        },
-        successCallBack: ()=>{
-            setLoading(false)
-        }
-    })
-
-    useEffect(() => {
-      const checkUser = async () =>{
-        const user:UserType | null = await authHandler()
-        if (!user){
-            logout()
-            return
-        }
-        setLoading(false)
-      }
-      checkUser()
-    
-    }, [])
-    
-    if (loading){
-        return <i>Loading .....</i>
-    }
-    
   return (
     <div>
-        <h1>Home</h1>
+
+        
+        <h1>Home </h1>
     </div>
   )
 }
