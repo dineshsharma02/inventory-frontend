@@ -4,12 +4,54 @@ import { store } from "../utils/store"
 
 const Home = () => {
   const {state}:any = useContext(store)
-  console.log({state})
 
   return (
     <div>
 
         
+        <h1>Home </h1>
+        <h1>Home </h1>
+        <h1>Home </h1>
+        <h1>Home </h1>
+        <h1>Home </h1>
+        <h1>Home </h1>
+        <h1>Home </h1>
+        <h1>Home </h1>
+        <h1>Home </h1>
+        <h1>Home </h1>
+        <h1>Home </h1>
+        <h1>Home </h1>
+        <h1>Home </h1>
+        <h1>Home </h1>
+        <h1>Home </h1>
+        <h1>Home </h1>
+        <h1>Home </h1>
+        <h1>Home </h1>
+        <h1>Home </h1>
+        <h1>Home </h1>
+        <h1>Home </h1>
+        <h1>Home </h1>
+        <h1>Home </h1>
+        <h1>Home </h1>
+        <h1>Home </h1>
+        <h1>Home </h1>
+        <h1>Home </h1>
+        <h1>Home </h1>
+        <h1>Home </h1>
+        <h1>Home </h1>
+        <h1>Home </h1>
+        <h1>Home </h1>
+        <h1>Home </h1>
+        <h1>Home </h1>
+        <h1>Home </h1>
+        <h1>Home </h1>
+        <h1>Home </h1>
+        <h1>Home </h1>
+        <h1>Home </h1>
+        <h1>Home </h1>
+        <h1>Home </h1>
+        <h1>Home </h1>
+        <h1>Home </h1>
         <h1>Home </h1>
     </div>
   )
