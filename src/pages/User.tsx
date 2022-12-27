@@ -9,7 +9,7 @@ import type {
   SorterResult,
 } from "antd/es/table/interface";
 import AddUserForm from "../components/AddUserForm";
-import { getAuthToken } from "../utils/functions";
+import { axiosRequest, getAuthToken } from "../utils/functions";
 import { AuthTokenType } from "../utils/types";
 import { usersUrl } from "../utils/network";
 import axios, { AxiosResponse } from "axios";
@@ -82,19 +82,15 @@ const User = () => {
 
 
   const getUsers = async() =>{
-    const headers = getAuthToken() as AuthTokenType
-    const response: AxiosResponse = await axios
-      .get(usersUrl, headers)
-      .catch((e) => {
-        notification.error({
-          message: "Operation Error",
-          description: e.response?.data.error,
-        });
+    
+    const response = await axiosRequest<UserProps[]>({
+      url:usersUrl,
+      hasAuth:true,
+      showError: false,
+    })
 
-      }) as AxiosResponse;
     if (response){
-      // console.log(response);
-      const data = (response.data as UserProps[]).map(
+      const data = response.data.map(
         (item) => ({...item,key:item.id,is_active:item.is_active.toString().toUpperCase()}))
       setUsers(data)
       setFetching(false)

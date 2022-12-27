@@ -1,16 +1,24 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import {Form,Input, Button, notification} from 'antd'
 
 import AuthComponent from '../components/AuthComponent'
-import { CustomAxiosError, DataProps } from '../utils/types'
+import { ActionTypes, CustomAxiosError, DataProps } from '../utils/types'
 import { LoginUrl } from '../utils/network'
 import axios from 'axios'
 import { useAuth } from '../utils/hooks'
 import { useNavigate } from 'react-router-dom'
+import { axiosRequest } from '../utils/functions'
+import { store } from '../utils/store'
 
-const NewUser = () => {
+
+interface CheckUserProps {
+    user_id : number
+}
+
+const CheckUser = () => {
 
   const [loading, setLoading] = useState(false)
+  const {dispatch}:any = useContext(store)
   const history = useNavigate()
   useAuth({
     successCallBack:()=>{
@@ -21,21 +29,28 @@ const NewUser = () => {
 
     const onSubmit = async (values:DataProps)=>{
         setLoading(true)
-        const response = await axios.post(LoginUrl,{...values,is_new_user:true}).catch(
-            (e:CustomAxiosError)=>{
-                notification.error({
-                    message:"User Check Error",
-                    description: e.response?.data.error
-                })
-                
-            }
-        )
+
+
+        const response = await axiosRequest<CheckUserProps>({
+            method: 'post',
+            url: LoginUrl,
+            payload:{...values,is_new_user:true}
+        })
+        
+        console.log(response);
+        
         if (response){
             notification.success({
-              message:"User Logged In"
+              message:"User Check Success"
           })
-          setLoading(false)
+          dispatch({
+            type: ActionTypes.UPDATE_PASSWORD_USER_ID,
+            payload: response.data.user_id
+          })
+          history("/create-password")
+          
         }
+        setLoading(false)
         setTimeout(()=>setLoading(false),2000)
 
         
@@ -55,4 +70,4 @@ const NewUser = () => {
   )
 }
 
-export default NewUser
+export default CheckUser

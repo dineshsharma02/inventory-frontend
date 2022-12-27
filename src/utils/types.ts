@@ -3,7 +3,7 @@ import React, { ReactNode } from "react"
 
 
 export interface DataProps {
-    [key:string]: string
+    [key:string]: string | number | boolean | null
   }
 
 
@@ -16,9 +16,9 @@ export interface CustomAxiosError extends Omit<AxiosError,'response'>{
 }
 
 export interface AuthTokenType {
-    headers?:{
-        Authorization: string
-    }
+    
+    Authorization: string
+    
 }
 
 
@@ -45,16 +45,21 @@ export type StoreType = {
 }
 
 export interface StoreProps {
-    user?: UserType | null 
+    user: UserType | null 
+    updatePasswordUserId: number | null
 }
 
 export enum ActionTypes {
-    UPDATE_USER_INFO = "[action] update user info"
+    UPDATE_USER_INFO = "[action] update user info",
+    UPDATE_PASSWORD_USER_ID = "[action] update password user id"
 }
 
-export interface ActionProps {
-    type : ActionTypes,
+export type ActionProps = {
+    type : ActionTypes.UPDATE_USER_INFO,
     payload : UserType | null,
+} | {
+    type : ActionTypes.UPDATE_PASSWORD_USER_ID,
+    payload : number | null,
 }
 
 

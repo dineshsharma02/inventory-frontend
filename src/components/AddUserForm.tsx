@@ -1,9 +1,8 @@
 import { Form, Input, Button, Modal, Select, notification } from "antd";
-import axios, { AxiosResponse } from "axios";
 import React, { useState } from "react";
-import { getAuthToken } from "../utils/functions";
+import { axiosRequest,  } from "../utils/functions";
 import { createUserUrl } from "../utils/network";
-import { AuthTokenType, DataProps } from "../utils/types";
+import { DataProps } from "../utils/types";
 
 const { Option } = Select;
 
@@ -25,18 +24,16 @@ const AddUserForm = ({
 
   const onSubmit = async (values: DataProps) => {
     setLoading(true);
-    const headers = getAuthToken() as AuthTokenType;
 
-    const response: AxiosResponse = (await axios
-      .post(createUserUrl, values, headers)
-      .catch((e) => {
-        notification.error({
-          message: "Operation Error",
-          description: e.response?.data.error,
-        });
-        onClose();
-        setLoading(false);
-      })) as AxiosResponse;
+    const response = await axiosRequest({
+      method:"post",
+      url: createUserUrl,
+      hasAuth:true,
+      payload: values,
+
+    })
+
+    setLoading(false)
 
     if (response) {
       onSuccessCallBack();

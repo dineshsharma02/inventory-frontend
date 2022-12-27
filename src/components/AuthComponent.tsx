@@ -11,7 +11,8 @@ interface AuthComponentProps {
     linkText?:string
     linkPath?:string
     onSubmit: (values: DataProps) => void
-    loading: boolean
+    loading?: boolean
+    isUpdatePassword?: boolean
 }
 
 
@@ -22,7 +23,8 @@ const AuthComponent:FC<AuthComponentProps> =  ({
     linkText = "New User?",
     linkPath = "/check-user",
     onSubmit,
-    loading = false
+    loading = false,
+    isUpdatePassword = false,
 
 
 }) => {
@@ -43,18 +45,28 @@ const AuthComponent:FC<AuthComponentProps> =  ({
     
     <Form layout = "vertical" autoComplete='off' onFinish={onSubmit}>
       
-      <Form.Item 
+      {
+        !isUpdatePassword && <Form.Item 
         label="Email"
         name = "email"
         rules={[{required:true, message: "Please input your email"}]}>
         <Input placeholder="abc@gmail.com" type='email'/>
       </Form.Item>
+      }
+
 
       {isPassword && <Form.Item 
         label="Password" 
         name="password"
         rules={[{required:true, message: "Please input your password"}]}>
         <Input placeholder="password" type='password' />
+      </Form.Item>}
+
+      {isUpdatePassword && <Form.Item 
+        label="Confirm Password" 
+        name="cpassword"
+        rules={[{required:true, message: "Please input your password confirmation"}]}>
+        <Input placeholder="Confirm password" type='password' />
       </Form.Item>}
       
       <Form.Item>
