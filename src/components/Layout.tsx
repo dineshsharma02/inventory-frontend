@@ -1,5 +1,6 @@
 import { AppstoreOutlined, DashboardOutlined, LogoutOutlined, UserOutlined } from "@ant-design/icons";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { Link , useLocation} from "react-router-dom";
 // import logo from "../assets"
 // import Logo from "../assets/logo.svg"
 
@@ -8,6 +9,30 @@ const Logo = require("../assets/logo.png") as string;
 // import Logo from "../assets/logo.png"
 
 const Layout = ({ children }: any) => {
+  
+  const location = useLocation()
+  const [activePath, setActivePath] = useState("/")
+
+  useEffect(() => {
+    setActivePath(location.pathname)
+    // console.log({pathInfo: location.pathname});
+
+    
+    
+  }, [location.pathname])
+
+  const isActive = (path:string):string =>{
+    switch(activePath){
+      case path:
+        return "active"
+      default:
+        return ""
+    }
+  }
+  
+
+
+
   return (
     <div className="layout">
       <div className="header">
@@ -30,21 +55,32 @@ const Layout = ({ children }: any) => {
         <div className="sideBar">
         <ul>
           <li>
-            <AppstoreOutlined className="icon"/>
-            <div className="text">Dashboard</div>
+            <Link to="/" className={"sideBarLinks " + isActive("/") }>
+              <AppstoreOutlined className="icon"/>
+              <div className="text">Dashboard</div>
+            </Link>
+            
           </li>
+
+          <li >
+          <Link to="/groups" className={"sideBarLinks " + isActive("/groups") }>
+            <UserOutlined className="icon" />
+            <div className="text">Groups</div>
+          </Link>
+          </li>
+
           <li>
-          
+          <Link to="/users" className={"sideBarLinks " + isActive("/users") }>
             <UserOutlined className="icon" />
             <div className="text">Users</div>
+          </Link>
           </li>
+
           <li>
-            <DashboardOutlined className="icon" />
-            <div className="text">Dashboard</div>
-          </li>
-          <li>
-            <DashboardOutlined className="icon" />
-            <div className="text">Dashboard</div>
+          <Link to="/users" className={"sideBarLinks " + isActive("/etc") }>
+            <UserOutlined className="icon" />
+            <div className="text">etc</div>
+          </Link>
           </li>
         </ul>
 

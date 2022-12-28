@@ -8,6 +8,7 @@ import Home from "./pages/Home";
 import AuthRoute from "./components/AuthRoute";
 import User from "./pages/User";
 import UpdateUserPassword from "./pages/UpdateUserPassword";
+import Groups from "./pages/Groups";
 
 const router = () => {
   return (
@@ -30,6 +31,7 @@ const router = () => {
         /> */}
         <Route path="/" element={<AuthRoute Children={<Route path="/" element={<Home /> } />}></AuthRoute>}/>
         <Route path="/users" element={<AuthRoute Children={<Route path="/" element={<User /> } />}></AuthRoute>}/>
+        <Route path="/groups" element={<AuthRoute Children={<Route path="/" element={<Groups /> } />}></AuthRoute>}/>
       </Routes>
     </BrowserRouter>
   );

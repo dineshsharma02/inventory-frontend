@@ -10,11 +10,12 @@ import type {
 } from "antd/es/table/interface";
 import AddUserForm from "../components/AddUserForm";
 import { axiosRequest, getAuthToken } from "../utils/functions";
-import { AuthTokenType, DataProps } from "../utils/types";
-import { usersUrl } from "../utils/network";
+import { AuthTokenType, DataProps, GroupProps } from "../utils/types";
+import { GroupUrl, usersUrl } from "../utils/network";
 import axios, { AxiosResponse } from "axios";
 import { ItemRender } from "antd/es/upload/interface";
 import ContentLayout from "../components/ContentLayout";
+import AddGroupForm from "../components/AddGroupForm";
 
 interface DataType {
   key: React.Key;
@@ -41,12 +42,12 @@ interface UserProps {
 
 
 
-const User = () => {
+const Groups = () => {
   const { state }: any = useContext(store);
 
   const [fetching, setFetching] = useState(true);
   const [modalState, SetModalState] = useState(false);
-  const [users, setUsers] = useState<UserProps[]>()
+  const [groups, setGroups] = useState<GroupProps[]>([])
 
 
 
@@ -57,50 +58,61 @@ const User = () => {
       dataIndex: "id",
     },
     {
-      title: "Email",
-      dataIndex: "email",
-    },
-    {
       title: "Name",
-      dataIndex: "fullname",
+      dataIndex: "name",
     },
     {
-      title: "Active status",
-      dataIndex: "is_active",
-    },
-    {
-      title: "Last Login",
-      dataIndex: "last_login",
+      title: "Belongs To (another group)",
+      dataIndex: "belongsTo",
     },
     {
       title: "Created at",
       dataIndex: "created_at",
     },
+    {
+      title: "Total items",
+      dataIndex: "total_items",
+    },
+    {
+      title: "Last Login",
+      dataIndex: "last_login",
+    },
+
+    {
+      title: "Action",
+      dataIndex: "action",
+    },
+    
   ];
   
   
   
 
 
-  const getUsers = async() =>{
+  const getGroups = async() =>{
     
-    const response = await axiosRequest<UserProps[]>({
-      url:usersUrl,
+    const response = await axiosRequest<{results:GroupProps[]}>({
+      url:GroupUrl,
       hasAuth:true,
       showError: false,
     })
 
     if (response){
-      const data = response.data.map(
-        (item) => ({...item,key:item.id,is_active:item.is_active.toString().toUpperCase()}))
-      setUsers(data)
+      console.log(response);
+      
+      const data = response.data.results.map(item=>({
+        ...item, belongsTo: item.belongs_to ?
+        item.belongs_to.name: "Not Defined"
+      }))
+      setGroups(data)
       setFetching(false)
+      
       
     }
   }
 
   useEffect(() => {
-    getUsers()
+    getGroups()
   
     
   }, [])
@@ -110,24 +122,26 @@ const User = () => {
   const onCreateUser = () =>{
     SetModalState(false)
     setFetching(true)
-    getUsers()
+    getGroups()
   }
-  return (
-    <ContentLayout 
-      pageTitle="User"
+  return(
+    <ContentLayout
+      pageTitle="Group"
       setModalState={SetModalState}
-      dataSource={(users as unknown) as DataProps[]} 
+      dataSource={(groups as unknown) as DataProps[]} 
       columns={columns}
       fetching={fetching}>
       
-      <AddUserForm
+      <AddGroupForm
+  
         onSuccessCallBack={onCreateUser} 
         
         isVisible={modalState}
         onClose={()=>SetModalState(false)}
+        groups = {groups}
       />
     </ContentLayout>
-  );
+  )
 };
 
-export default User;
+export default Groups;

@@ -3,7 +3,7 @@ import React, { ReactNode } from "react"
 
 
 export interface DataProps {
-    [key:string]: string | number | boolean | null
+    [key:string]: string | number | boolean | DataProps | null
   }
 
 
@@ -66,4 +66,23 @@ export type ActionProps = {
 export interface StoreProviderProps{
     state:StoreProps,
     dispatch: (arg:ActionProps)=> void
+}
+
+
+export interface FormModalProps {
+    isVisible?: boolean;
+    onSuccessCallBack: () => void;
+    onClose: () => void;
+  }
+
+
+export interface GroupProps{
+    id: number,
+    name: string,
+    belongs_to:{
+        name:string
+        id:number
+    } | null
+    created_at : string,
+    total_items:number
 }

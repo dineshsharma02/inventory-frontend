@@ -2,21 +2,17 @@ import { Form, Input, Button, Modal, Select, notification } from "antd";
 import React, { useState } from "react";
 import { axiosRequest,  } from "../utils/functions";
 import { createUserUrl } from "../utils/network";
-import { DataProps } from "../utils/types";
+import { DataProps, FormModalProps } from "../utils/types";
 
 const { Option } = Select;
 
-interface AddUserFormProps {
-  isVisible?: boolean;
-  onSuccessCallBack: () => void;
-  onClose: () => void;
-}
+
 
 const AddUserForm = ({
   isVisible,
   onSuccessCallBack,
   onClose,
-}: AddUserFormProps) => {
+}: FormModalProps) => {
 
 
   const [form] = Form.useForm(); 
