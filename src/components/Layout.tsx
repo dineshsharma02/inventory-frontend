@@ -1,4 +1,4 @@
-import { AppstoreOutlined, DashboardOutlined, LogoutOutlined, UserOutlined } from "@ant-design/icons";
+import { AppstoreOutlined, DashboardOutlined, GroupOutlined, LogoutOutlined, ShopOutlined, ShoppingCartOutlined, UserOutlined } from "@ant-design/icons";
 import React, { useEffect, useState } from "react";
 import { Link , useLocation} from "react-router-dom";
 // import logo from "../assets"
@@ -64,15 +64,22 @@ const Layout = ({ children }: any) => {
 
           <li >
           <Link to="/groups" className={"sideBarLinks " + isActive("/groups") }>
-            <UserOutlined className="icon" />
+            <GroupOutlined className="icon" />
             <div className="text">Groups</div>
           </Link>
           </li>
 
           <li>
           <Link to="/inventory" className={"sideBarLinks " + isActive("/inventory") }>
-            <UserOutlined className="icon" />
+            <ShoppingCartOutlined className="icon" />
             <div className="text">Inventory</div>
+          </Link>
+          </li>
+
+          <li>
+          <Link to="/shops" className={"sideBarLinks " + isActive("/shops") }>
+            <ShopOutlined className="icon" />
+            <div className="text">Shops</div>
           </Link>
           </li>
 
