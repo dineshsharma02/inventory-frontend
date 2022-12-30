@@ -1,5 +1,5 @@
-import { Table } from 'antd';
-import React, { FC } from 'react'
+import { Button, Table } from 'antd';
+import React, { FC, ReactElement } from 'react'
 import { DataProps, FormModalProps } from '../utils/types';
 
 interface ContentLayoutProps {
@@ -9,6 +9,7 @@ interface ContentLayoutProps {
     columns: DataProps[]
     fetching: boolean
     children: any
+    extraButton?: any
 }
 
 
@@ -20,6 +21,8 @@ const ContentLayout= (
         dataSource,
         columns,
         fetching,
+        extraButton,
+        
         
         
     }:ContentLayoutProps) => {
@@ -32,7 +35,13 @@ const ContentLayout= (
                 <div className="searchInput">
                   <input type="text" name="" id="" />
                 </div>
-                <button onClick={()=>setModalState(true)}>Add {pageTitle}</button>
+                <div className="buttons">
+                <Button onClick={()=>setModalState(true)}>Add {pageTitle}</Button>
+                {/* <Button onClick={()=>setModalState(true)}>Add {pageTitle}</Button> */}
+                 
+                 {extraButton}
+                </div>
+                
               </div>
             </div>
             <br />

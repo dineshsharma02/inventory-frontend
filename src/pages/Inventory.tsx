@@ -1,14 +1,8 @@
 import React, { useState, useContext, useEffect } from "react";
 import { store } from "../utils/store";
 
-import { notification, TableProps } from "antd";
-import { Button, Space, Table } from "antd";
-import type {
-  ColumnsType,
-  FilterValue,
-  SorterResult,
-} from "antd/es/table/interface";
-import AddUserForm from "../components/AddUserForm";
+
+import { Button,  } from "antd";
 import { axiosRequest, getAuthToken } from "../utils/functions";
 import { AuthTokenType, DataProps, GroupProps, InventoryProps } from "../utils/types";
 import { InventoryUrl, usersUrl } from "../utils/network";
@@ -17,37 +11,21 @@ import { ItemRender } from "antd/es/upload/interface";
 import ContentLayout from "../components/ContentLayout";
 import AddInventoryForm from "../components/AddInventoryForm";
 import { useGetGroups } from "../utils/hooks";
+import AddInventoryFormCSV from "../components/AddInventoryFormCSV";
 
-interface DataType {
-  key: React.Key;
-  name: string;
-  age: number;
-  address: string;
+
+
+enum ModalState {
+  addItem,
+  addItemCSV,
+  off
 }
-
-interface UserProps {
-  created_at: string;
-  email:string;
-  fullname: string;
-  is_active:string;
-  last_login:string;
-  role:string;
-  key:number;
-  id:number;
-
-}
-
-
-
-
-
-
 
 const Inventory = () => {
   const { state }: any = useContext(store);
 
   const [fetching, setFetching] = useState(true);
-  const [modalState, SetModalState] = useState(false);
+  const [modalState, SetModalState] = useState<ModalState>(ModalState.off);
   const [inventories, setInventories] = useState<InventoryProps[]>([])
   const [groups, setGroups] = useState<GroupProps[]>([])
 
@@ -140,25 +118,34 @@ const columns = [
   
 
 
-  const onCreateUser = () =>{
-    SetModalState(false)
+  const onCreateInventory = () =>{
+    SetModalState(ModalState.off)
     setFetching(true)
     getInventories()
   }
   return (
     <ContentLayout 
       pageTitle="Inventory"
-      setModalState={SetModalState}
+      setModalState={(state)=> SetModalState(ModalState.addItem)}
       dataSource={(inventories as unknown) as DataProps[]} 
+      extraButton = {<Button type="primary" onClick={()=>SetModalState(ModalState.addItemCSV)}>Add Inventories(CSV)</Button>}
       columns={columns}
       fetching={fetching}>
       
       <AddInventoryForm
-        onSuccessCallBack={onCreateUser} 
+        onSuccessCallBack={onCreateInventory} 
         
-        isVisible={modalState}
-        onClose={()=>SetModalState(false)}
+        isVisible={modalState === ModalState.addItem}
+        onClose={()=>SetModalState(ModalState.off)}
         groups = {groups}
+      />
+
+      <AddInventoryFormCSV
+        onSuccessCallBack={onCreateInventory} 
+        
+        isVisible={modalState === ModalState.addItemCSV}
+        onClose={()=>SetModalState(ModalState.off)}
+        
       />
     </ContentLayout>
   );

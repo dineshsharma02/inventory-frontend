@@ -16,6 +16,7 @@ import axios, { AxiosResponse } from "axios";
 import { ItemRender } from "antd/es/upload/interface";
 import ContentLayout from "../components/ContentLayout";
 import AddGroupForm from "../components/AddGroupForm";
+import { useGetGroups } from "../utils/hooks";
 
 interface DataType {
   key: React.Key;
@@ -86,7 +87,7 @@ const Groups = () => {
   ];
   
   
-  getGroups(setGroups,setFetching)
+  useGetGroups(setGroups,setFetching)
 
 
 

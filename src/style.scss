@@ -142,7 +142,7 @@ html,body{
             display: flex;
             align-items: center;
             
-            button{
+            Button{
                 margin-left: 10px;
             }
         }
@@ -175,4 +175,8 @@ html,body{
     background-position: center;
     cursor: pointer;
     margin: 0 auto;
+}
+
+.helperNote{
+    color: red
 }
