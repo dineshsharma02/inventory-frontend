@@ -11,6 +11,7 @@ import UpdateUserPassword from "./pages/UpdateUserPassword";
 import Groups from "./pages/Groups";
 import Inventory from "./pages/Inventory";
 import Shop from "./pages/Shop";
+import UserActivities from "./pages/UserActivities";
 
 const router = () => {
   return (
@@ -36,6 +37,7 @@ const router = () => {
         <Route path="/groups" element={<AuthRoute Children={<Route path="/" element={<Groups /> } />}></AuthRoute>}/>
         <Route path="/inventory" element={<AuthRoute Children={<Route path="/" element={<Inventory /> } />}></AuthRoute>}/>
         <Route path="/shops" element={<AuthRoute Children={<Route path="/" element={<Shop /> } />}></AuthRoute>}/>
+        <Route path="/user-activities" element={<AuthRoute Children={<Route path="/" element={<UserActivities /> } />}></AuthRoute>}/>
       </Routes>
     </BrowserRouter>
   );

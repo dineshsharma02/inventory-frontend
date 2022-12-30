@@ -4,12 +4,13 @@ import { DataProps, FormModalProps } from '../utils/types';
 
 interface ContentLayoutProps {
     pageTitle: string
-    setModalState: (val:boolean) => void
+    setModalState?: (val:boolean) => void
     dataSource: DataProps[]
     columns: DataProps[]
     fetching: boolean
-    children: any
+    children?: any
     extraButton?: any
+    disableAddButton?: boolean
 }
 
 
@@ -22,6 +23,7 @@ const ContentLayout= (
         columns,
         fetching,
         extraButton,
+        disableAddButton = false
         
         
         
@@ -36,8 +38,7 @@ const ContentLayout= (
                   <input type="text" name="" id="" />
                 </div>
                 <div className="buttons">
-                <Button onClick={()=>setModalState(true)}>Add {pageTitle}</Button>
-                {/* <Button onClick={()=>setModalState(true)}>Add {pageTitle}</Button> */}
+                {!disableAddButton && <Button onClick={()=> setModalState && setModalState(true)}>Add {pageTitle}</Button>}
                  
                  {extraButton}
                 </div>

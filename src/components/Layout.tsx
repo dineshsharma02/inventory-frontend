@@ -91,9 +91,9 @@ const Layout = ({ children }: any) => {
           </li>
 
           <li>
-          <Link to="/users" className={"sideBarLinks " + isActive("/etc") }>
+          <Link to="/user-activities" className={"sideBarLinks " + isActive("/user-activities") }>
             <UserOutlined className="icon" />
-            <div className="text">etc</div>
+            <div className="text">User activities</div>
           </Link>
           </li>
         </ul>
