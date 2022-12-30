@@ -9,7 +9,7 @@ import type {
   SorterResult,
 } from "antd/es/table/interface";
 import AddUserForm from "../components/AddUserForm";
-import { axiosRequest, getAuthToken } from "../utils/functions";
+import { axiosRequest, getAuthToken, getGroups } from "../utils/functions";
 import { AuthTokenType, DataProps, GroupProps } from "../utils/types";
 import { GroupUrl, usersUrl } from "../utils/network";
 import axios, { AxiosResponse } from "axios";
@@ -86,43 +86,14 @@ const Groups = () => {
   ];
   
   
-  
+  getGroups(setGroups,setFetching)
 
-
-  const getGroups = async() =>{
-    
-    const response = await axiosRequest<{results:GroupProps[]}>({
-      url:GroupUrl,
-      hasAuth:true,
-      showError: false,
-    })
-
-    if (response){
-      console.log(response);
-      
-      const data = response.data.results.map(item=>({
-        ...item, belongsTo: item.belongs_to ?
-        item.belongs_to.name: "Not Defined"
-      }))
-      setGroups(data)
-      setFetching(false)
-      
-      
-    }
-  }
-
-  useEffect(() => {
-    getGroups()
-  
-    
-  }, [])
-  
 
 
   const onCreateUser = () =>{
     SetModalState(false)
     setFetching(true)
-    getGroups()
+    getGroups(setGroups,setFetching)
   }
   return(
     <ContentLayout

@@ -3,7 +3,7 @@ import React, { ReactNode } from "react"
 
 
 export interface DataProps {
-    [key:string]: string | number | boolean | DataProps | null
+    [key:string]: string | number | boolean | DataProps | React.ReactElement | null
   }
 
 
@@ -85,4 +85,35 @@ export interface GroupProps{
     } | null
     created_at : string,
     total_items:number
+}
+
+
+export interface GroupProps{
+    id: number,
+    name: string,
+    belongs_to:{
+        name:string
+        id:number
+    } | null
+    created_at : string,
+    total_items:number
+}
+
+
+export interface InventoryProps {
+    id: number
+    code: string
+    name: string
+    created_by:{
+        email: string
+    }
+    group: {
+        name: string
+        id: number
+    }
+    created_at: string
+    remaining: number
+    price: number
+    photo: string
+    total?: number
 }

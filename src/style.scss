@@ -165,3 +165,14 @@ html,body{
         color: black;
     }
 }
+
+
+.imageView{
+    width: 100px;
+    height: 100px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    cursor: pointer;
+    margin: 0 auto;
+}

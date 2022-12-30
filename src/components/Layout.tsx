@@ -70,6 +70,13 @@ const Layout = ({ children }: any) => {
           </li>
 
           <li>
+          <Link to="/inventory" className={"sideBarLinks " + isActive("/inventory") }>
+            <UserOutlined className="icon" />
+            <div className="text">Inventory</div>
+          </Link>
+          </li>
+
+          <li>
           <Link to="/users" className={"sideBarLinks " + isActive("/users") }>
             <UserOutlined className="icon" />
             <div className="text">Users</div>
