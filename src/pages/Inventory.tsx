@@ -3,14 +3,14 @@ import { store } from "../utils/store";
 
 
 import { Button,  } from "antd";
-import { axiosRequest, getAuthToken } from "../utils/functions";
+import { axiosRequest, getAuthToken, getInventories } from "../utils/functions";
 import { AuthTokenType, DataProps, GroupProps, InventoryProps } from "../utils/types";
 import { InventoryUrl, usersUrl } from "../utils/network";
 import axios, { AxiosResponse } from "axios";
 import { ItemRender } from "antd/es/upload/interface";
 import ContentLayout from "../components/ContentLayout";
 import AddInventoryForm from "../components/AddInventoryForm";
-import { useGetGroups } from "../utils/hooks";
+import { useGetGroups, useGetInventories } from "../utils/hooks";
 import AddInventoryFormCSV from "../components/AddInventoryFormCSV";
 
 
@@ -19,6 +19,20 @@ enum ModalState {
   addItem,
   addItemCSV,
   off
+}
+
+export const formatInventoryPhoto =(inventories: InventoryProps[]) =>{
+  return inventories.map(item => (
+    {
+      ...item,
+      photoInfo: <div className="imageField" 
+                  style={{
+                    backgroundImage: `url(${item.photo})`,
+                    width: "70px",
+                    height: "70px"}}
+                    />
+    }
+  ))
 }
 
 const Inventory = () => {
@@ -83,51 +97,53 @@ const columns = [
   
 
 
-  const getInventories = async() =>{
+  // const getInventories = async() =>{
     
-    const response = await axiosRequest<InventoryProps[]>({
-      url:InventoryUrl,
-      hasAuth:true,
-      showError: false,
-    })
+  //   const response = await axiosRequest<InventoryProps[]>({
+  //     url:InventoryUrl,
+  //     hasAuth:true,
+  //     showError: false,
+  //   })
 
-    if (response){
-      console.log(response.data);
+  //   if (response){
+  //     console.log(response.data);
       
-      const data = response.data.map(
-        (item) => ({...item, 
-                    photoInfo: <div className="imageField" 
-                                    style={{
-                                      backgroundImage: `url(${item.photo})`,
-                                      width: "70px",
-                                      height: "70px"}}
-                                      />,
-                    groupInfo: item.group.name
-      }))
-      setInventories(data)
-      setFetching(false)
+  //     const data = response.data.map(
+  //       (item) => ({...item, 
+  //                   photoInfo: <div className="imageField" 
+  //                                   style={{
+  //                                     backgroundImage: `url(${item.photo})`,
+  //                                     width: "70px",
+  //                                     height: "70px"}}
+  //                                     />,
+  //                   groupInfo: item.group.name
+  //     }))
+  //     setInventories(data)
+  //     setFetching(false)
       
-    }
-  }
+  //   }
+  // }
 
-  useEffect(() => {
-    getInventories()
+  // useEffect(() => {
+  //   getInventories()
   
     
-  }, [])
+  // }, [])
+
+  useGetInventories(setInventories,setFetching)
   
 
 
   const onCreateInventory = () =>{
     SetModalState(ModalState.off)
     setFetching(true)
-    getInventories()
+    getInventories(setInventories,setFetching)
   }
   return (
     <ContentLayout 
       pageTitle="Inventory"
       setModalState={(state)=> SetModalState(ModalState.addItem)}
-      dataSource={(inventories as unknown) as DataProps[]} 
+      dataSource={(formatInventoryPhoto(inventories) as unknown) as DataProps[]} 
       extraButton = {<Button type="primary" onClick={()=>SetModalState(ModalState.addItemCSV)}>Add Inventories(CSV)</Button>}
       columns={columns}
       fetching={fetching}>

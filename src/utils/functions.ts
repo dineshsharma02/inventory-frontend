@@ -108,22 +108,27 @@ export const getGroups = async(setGroups: (data: GroupProps[])=> void, setFetchi
 }
 
 
-//   export const getInventories = async (
-//     setInventory: (data: InventoryProps[]) => void, 
-//     setFetching: (val:boolean) => void
-// ) => {
-//     const response = await axiosRequest<{results:InventoryProps[]}>({
-//       url: InventoryUrl,
-//       hasAuth: true,
-//       showError: false
-//     })
+  export const getInventories = async (
+    setInventory: (data: InventoryProps[]) => void, 
+    setFetching: (val:boolean) => void
+) => {
+    const response = await axiosRequest<InventoryProps[]>({
+      url: InventoryUrl,
+      hasAuth: true,
+      showError: false
+    })
 
-//     if(response){
-//         const data = response.data.results.map(item => ({
-//             ...item, groupInfo: item.group.name, 
-//             photoInfo: item.photo
-//         }))
-//       setInventory(data)
-//       setFetching(false)
-//     }
-//   }
+    if (response){
+      console.log(response.data);
+      
+      const data = response.data.map(
+        (item) => ({...item, 
+                    photoInfo: item.photo,
+                      groupInfo: item.group.name
+                    
+      }))
+      setInventory(data)
+      setFetching(false)
+      
+    }
+  }
