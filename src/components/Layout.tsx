@@ -1,6 +1,7 @@
 import { AppstoreOutlined, DashboardOutlined, GroupOutlined, LogoutOutlined, ShopOutlined, ShoppingCartOutlined, UserOutlined } from "@ant-design/icons";
 import React, { useEffect, useState } from "react";
 import { Link , useLocation} from "react-router-dom";
+import { logout } from "../utils/functions";
 // import logo from "../assets"
 // import Logo from "../assets/logo.svg"
 
@@ -44,8 +45,17 @@ const Layout = ({ children }: any) => {
             <UserOutlined className="icon user-icon" style={{ fontSize: "30px", color: "white" }} />
             <div className="text">Dinesh </div>
           </div>
-          <div className="logoutButton">
-            <LogoutOutlined className="icon logout-icon" style={{ fontSize: "30px", color: "white" }} />
+          <div className="rightItem">
+          <Link to="/invoice-section">
+            <div className="newInvoiceButton">
+              New Invoice 
+            </div>
+          </Link>
+            <div className="logoutButton">
+              <div className="text" onClick={logout}>
+                Logout
+              </div>
+            </div>
           </div>
         </div>
       </div>

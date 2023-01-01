@@ -1,5 +1,5 @@
 import { AxiosError } from "axios"
-import React, { ReactNode } from "react"
+import React, { ReactElement, ReactNode } from "react"
 
 
 export interface DataProps {
@@ -116,4 +116,18 @@ export interface InventoryProps {
     price: number
     photo: string
     total?: number
+}
+
+export interface InvoiceCreationProps {
+    id: number
+    item: string
+    qty: number
+    price: number
+    total: number
+    action?: ReactElement
+}
+
+
+export interface invoiceCreationAddRemoveProps {
+    [key: number]: number
 }

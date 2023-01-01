@@ -5,7 +5,7 @@
 }
 
 $headerColor: #269962;
-$sideBarWidth: 200px;
+$sideBarWidth: 250px;
 $spacing:30px;
 
 html,body{
@@ -57,6 +57,10 @@ html,body{
             align-items: center;
             justify-content: space-between;
             flex:1;
+            .rightItem{
+                display: flex;
+                align-items: center;
+            }
     
         }
         .text{
@@ -76,14 +80,12 @@ html,body{
 
 
 .logoutButton{
-    // background-color: darken($headerColor,20%);
+    background-color: darken($headerColor,20%);
+    padding: 7px 20px;
+    border-radius: 4px;
     cursor: pointer;
 }
-.logoutButton:hover{
-    background-color: darken($headerColor, 10%);
-    padding: 5px 2px;
-    border-radius: 100px;
-}
+
 
 .bodyHolder{
     width: 100%;
@@ -180,3 +182,20 @@ html,body{
 .helperNote{
     color: red
 }
+
+.newInvoiceButton{
+    background-color: white;
+    padding: 7px 20px;
+    border-radius: 4px;
+    margin-right: 10px;
+    color: black; 
+}
+
+.invoice-creation{
+    display: grid;
+    grid-template-columns: 4fr 1fr;
+    grid-gap: 2em;
+    
+}
+
+
