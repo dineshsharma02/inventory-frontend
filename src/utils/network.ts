@@ -14,3 +14,5 @@ export const ShopUrl = BaseUrl + "/app/shop"
 export const UserActivityUrl = BaseUrl + "/user/activities-log/"
 
 export const CloudinaryUrl = "https://api.cloudinary.com/v1_1/deonxg4na/upload"
+
+export const InvoiceUrl = BaseUrl + "/app/invoice"

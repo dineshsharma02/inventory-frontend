@@ -3,7 +3,7 @@ import React, { ReactElement, ReactNode } from "react"
 
 
 export interface DataProps {
-    [key:string]: string | number | boolean | DataProps | React.ReactElement | null
+    [key:string]: string | number | boolean | DataProps | React.ReactElement | DataProps[] | null
   }
 
 
@@ -71,7 +71,7 @@ export interface StoreProviderProps{
 
 export interface FormModalProps {
     isVisible?: boolean;
-    onSuccessCallBack: () => void;
+    onSuccessCallBack: (data?:number) => void;
     onClose: () => void;
   }
 
@@ -131,3 +131,12 @@ export interface InvoiceCreationProps {
 export interface invoiceCreationAddRemoveProps {
     [key: number]: number
 }
+
+
+export interface ShopProps {
+    created_at: string
+    name: string
+    created_by: DataProps 
+    created_by_email?: string
+    id: number
+  }

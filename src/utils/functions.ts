@@ -1,8 +1,8 @@
 import { message, notification } from "antd";
 import Axios, { AxiosRequestHeaders, AxiosResponse } from "axios";
 import { tokenName } from "./data";
-import { GroupUrl, InventoryUrl, MeUrl } from "./network";
-import { AuthTokenType, DataProps, UserType, CustomAxiosError, GroupProps, InventoryProps } from "./types";
+import { GroupUrl, InventoryUrl, MeUrl, ShopUrl } from "./network";
+import { AuthTokenType, DataProps, UserType, CustomAxiosError, GroupProps, InventoryProps, InvoiceCreationProps, ShopProps } from "./types";
 
 // this method provides the bearer token
 export const getAuthToken = (): AuthTokenType | null => {
@@ -130,5 +130,35 @@ export const getGroups = async(setGroups: (data: GroupProps[])=> void, setFetchi
       setInventory(data)
       setFetching(false)
       
+    }
+  }
+
+
+
+  export const getTotal = (invoiceData: InvoiceCreationProps[]) => {
+    return invoiceData.reduce((sum:number, item:InvoiceCreationProps) => {
+      sum += item.price * item.qty
+      return sum
+    }, 0)
+  }
+
+
+
+  export const getShops = async (
+    setShop: (data: ShopProps[]) => void, 
+    setFetching: (val:boolean) => void
+) => {
+    const response = await axiosRequest<{results:ShopProps[]}>({
+      url: ShopUrl,
+      hasAuth: true,
+      showError: false
+    })
+
+    if(response){
+        const data = response.data.results.map(
+            (item) => 
+            ({...item, created_by_email: (item.created_by.email as string)}))
+        setShop(data)
+      setFetching(false)
     }
   }

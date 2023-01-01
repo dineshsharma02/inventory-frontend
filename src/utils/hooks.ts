@@ -1,6 +1,6 @@
 import { useContext, useEffect } from "react"
-import { authHandler, axiosRequest, getGroups, getInventories, logout } from "./functions"
-import { ActionTypes, AuthProps, GroupProps, InventoryProps, UserType } from "./types"
+import { authHandler, axiosRequest, getGroups, getInventories, getShops, logout } from "./functions"
+import { ActionTypes, AuthProps, GroupProps, InventoryProps, ShopProps, UserType } from "./types"
 import {store} from "./store"
 import { GroupUrl } from "./network"
 
@@ -55,5 +55,16 @@ export const useGetInventories = (
   
     useEffect(() => {
       getInventories(setInventory, setFetching)
+    }, [])
+}
+
+
+
+export const useGetShops = (
+  setShops: (data: ShopProps[]) => void, 
+  setFetching: (val:boolean) => void) => {
+
+    useEffect(() => {
+      getShops(setShops, setFetching)
     }, [])
 }
