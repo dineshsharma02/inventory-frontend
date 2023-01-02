@@ -212,3 +212,54 @@ html,body{
         color: #757575;
     }
 }
+
+
+
+.summaryContainer{
+    display: flex;
+    align-items: center;
+
+    .summaryContent{
+        width: 100%;
+        margin-right: 2em;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .info{
+            font-size: 12px;
+            color: darken(white,40%);
+        }
+
+        .count{
+            font-size: 20px;
+            font-weight: bold;
+            color: black !important;
+        }
+
+        .icon{
+            font-size: 20px;
+            .inventory{
+                color: #269962;
+            }
+
+            .group{
+                color: #265299;
+            }
+
+            .shops{
+                color: #da631e;
+            }
+
+            .users{
+                color: #269999;
+            }
+        }
+
+        &:last-child{
+            margin-right: 0;
+        }
+    }
+
+
+}
