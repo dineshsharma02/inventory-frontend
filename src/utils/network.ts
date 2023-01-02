@@ -15,6 +15,9 @@ export const ShopUrl = BaseUrl + "/app/shop"
 export const UserActivityUrl = BaseUrl + "/user/activities-log/"
 export const InvoiceUrl = BaseUrl + "/app/invoice"
 export const SummaryUrl = BaseUrl + "/app/summary"
+export const TopSellUrl = BaseUrl + "/app/top-selling"
+export const SaleByShopUrl = BaseUrl + "/app/sales-by-shop"
+export const PurchaseSummaryUrl = BaseUrl + "/app/purchase-summary"
 
 
 
