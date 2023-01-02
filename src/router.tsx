@@ -13,6 +13,7 @@ import Inventory from "./pages/Inventory";
 import Shop from "./pages/Shop";
 import UserActivities from "./pages/UserActivities";
 import InvoiceCreation from "./pages/InvoiceCreation";
+import Invoice from "./pages/Invoice";
 
 const router = () => {
   return (
@@ -40,6 +41,7 @@ const router = () => {
         <Route path="/shops" element={<AuthRoute Children={<Route path="/" element={<Shop /> } />}></AuthRoute>}/>
         <Route path="/user-activities" element={<AuthRoute Children={<Route path="/" element={<UserActivities /> } />}></AuthRoute>}/>
         <Route path="/invoice-section" element={<AuthRoute Children={<Route path="/" element={<InvoiceCreation /> } />}></AuthRoute>}/>
+        <Route path="/invoices" element={<AuthRoute Children={<Route path="/" element={<Invoice /> } />}></AuthRoute>}/>
       </Routes>
     </BrowserRouter>
   );

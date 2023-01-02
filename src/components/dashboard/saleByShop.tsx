@@ -80,7 +80,7 @@ const SaleByShop = () => {
   return (
     <div className="card">
       <h3>Sales By Shop</h3>
-      <div>
+      <div className="pieUI">
         {loading? <Spin/> :
         <Pie data={getChartData()} options = {options}/>}
       </div>

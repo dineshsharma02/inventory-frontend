@@ -1,6 +1,6 @@
 import { useContext, useEffect } from "react"
-import { authHandler, axiosRequest, getGroups, getInventories, getShops, logout } from "./functions"
-import { ActionTypes, AuthProps, GroupProps, InventoryProps, ShopProps, UserType } from "./types"
+import { authHandler, axiosRequest, getGroups, getInventories, getInvoices, getShops, logout } from "./functions"
+import { ActionTypes, AuthProps, GroupProps, InventoryProps, invoiceType, ShopProps, UserType } from "./types"
 import {store} from "./store"
 import { GroupUrl } from "./network"
 
@@ -66,5 +66,15 @@ export const useGetShops = (
 
     useEffect(() => {
       getShops(setShops, setFetching)
+    }, [])
+}
+
+
+export const useGetInvoices = (
+  setInvoices: (data: invoiceType[]) => void, 
+  setFetching: (val:boolean) => void) => {
+
+    useEffect(() => {
+      getInvoices(setInvoices, setFetching)
     }, [])
 }

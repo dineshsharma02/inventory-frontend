@@ -140,3 +140,21 @@ export interface ShopProps {
     created_by_email?: string
     id: number
   }
+
+
+  export interface invoiceType {
+    
+    id: number
+    created_by:{
+        email:string
+    }
+    shop:{
+        name:string
+    }
+    created_at: string
+    created_by_email: string 
+    invoice_items: InvoiceCreationProps[]
+    shop_name:string
+  }
+
+
